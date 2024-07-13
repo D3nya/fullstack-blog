@@ -1,0 +1,43 @@
+.editorDark {
+  :global {
+    .editor-toolbar {
+    }
+    .CodeMirror {
+      background-color: #121212;
+      color: #fff;
+      border: 1px solid #dee2e6;
+    }
+
+    .CodeMirror-fullscreen {
+      background-color: #121212;
+      color: #fff;
+    }
+
+    .editor-toolbar {
+      background-color: #121212;
+      border: 1px solid #dee2e6;
+    }
+
+    .editor-toolbar button {
+      color: #dee2e6;
+    }
+
+    .editor-preview,
+    .editor-preview-side {
+      background-color: #121212;
+      color: #fff;
+    }
+    .CodeMirror-cursor {
+      border-left: 1px solid #fff;
+    }
+
+    .editor-toolbar button.active,
+    .editor-toolbar button:hover {
+      color: #121212;
+    }
+  }
+}
+
+.editorLight {
+  margin: 15px;
+}
