@@ -75,8 +75,12 @@ const postsSlice = createSlice({
       postsSlice.caseReducers.setLoading(state);
     });
     builder.addCase(fetchPosts.fulfilled, (state, action) => {
-      state.totalCount = action.payload.totalCount;
-      state.items = [...state.items, ...action.payload.items];
+      state.totalCount = action.payload?.totalCount;
+      if (Array.isArray(action.payload?.items)) {
+        state.items = [...state.items, ...action.payload.items];
+      } else {
+        state.items = [];
+      }
       state.status = 'loaded';
     });
     builder.addCase(fetchPosts.rejected, (state, action) => {
