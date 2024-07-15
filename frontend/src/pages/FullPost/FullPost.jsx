@@ -1,42 +1,36 @@
 import React from 'react';
 import { Paper } from '@mui/material';
 import { useParams } from 'react-router-dom';
-import axios from 'axios';
 
 import { Post } from './components/Post';
 import { Comments } from '../../components/Comments/Comments';
 import { AddComment } from './components/AddComment';
 
 // Redux
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { SideBlock } from '../../components/SideBlock/SideBlock';
+import { fetchPost } from '../../store/slices/postsSlice';
 
 export const FullPost = () => {
-  const [data, setData] = React.useState();
-  const [isLoading, setIsLoading] = React.useState(true);
-  const userData = useSelector((state) => state.auth.user);
-
   const { id } = useParams();
+  const dispatch = useDispatch();
+  const { posts, auth } = useSelector((state) => state);
+
+  const userData = auth.user;
+  const post = posts.items[0];
+  const isLoading = posts.status === 'loading';
 
   React.useEffect(() => {
-    axios
-      .get(`/posts/${id}`)
-      .then((res) => {
-        setData(res.data);
-        setIsLoading(false);
-      })
-      .catch((error) => {
-        console.error(error);
-      });
+    dispatch(fetchPost(id));
   }, [id]);
 
   return (
     <>
       <Paper sx={{ mt: '15px', padding: '15px', pb: '0px' }}>
         <Post
-          post={data}
+          post={post}
           isLoading={isLoading}
-          isEditable={userData?._id === data?.user?._id}
+          isEditable={userData?._id === post?.user?._id}
         />
       </Paper>
       <SideBlock

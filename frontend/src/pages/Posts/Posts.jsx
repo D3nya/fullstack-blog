@@ -39,6 +39,7 @@ export const Posts = () => {
 
   const isPostsLoading = posts.status === 'loading';
   const allPostsLoaded = posts.items.length >= posts.totalCount;
+  const isPostsFailed = posts.status === 'failed';
 
   // Reset posts state when tag changes
   useEffect(() => {
@@ -47,7 +48,7 @@ export const Posts = () => {
 
   // First fetch
   useEffect(() => {
-    if (posts.items.length === 0 && !firstLoading) {
+    if (posts.items.length === 0 && !firstLoading && !isPostsFailed) {
       setFirstLoading(true);
 
       dispatch(
@@ -71,7 +72,7 @@ export const Posts = () => {
 
   // When in view div
   useEffect(() => {
-    if (inView && !allPostsLoaded && !isPostsLoading && !posts.error) {
+    if (inView && !allPostsLoaded && !isPostsLoading && !isPostsFailed) {
       if (posts.skip + posts.limit * 2 > posts.totalCount) {
         dispatch(
           setLimit(
@@ -85,7 +86,12 @@ export const Posts = () => {
 
   // fetchs
   useEffect(() => {
-    if (posts.skip > 0 && !allPostsLoaded && !isPostsLoading) {
+    if (
+      posts.skip > 0 &&
+      !allPostsLoaded &&
+      !isPostsLoading &&
+      !isPostsFailed
+    ) {
       dispatch(
         fetchPosts({
           sort: tabsValue,

@@ -16,6 +16,22 @@ export const fetchPosts = createAsyncThunk(
 
       return { items: data, totalCount };
     } catch (error) {
+      if (error.response && error.response.status === 500) {
+        return thunkAPI.rejectWithValue('Internal Server Error');
+      }
+      thunkAPI.rejectWithValue(error.message);
+    }
+  }
+);
+
+export const fetchPost = createAsyncThunk(
+  'posts/fetchPost',
+  async (id, thunkAPI) => {
+    try {
+      const { data } = await axios.get(`/api/posts/${id}`);
+
+      return data;
+    } catch (error) {
       thunkAPI.rejectWithValue(error.message);
     }
   }
@@ -89,6 +105,17 @@ const postsSlice = createSlice({
     // Delete post
     builder.addCase(fetchDeletePost.pending, (state, action) => {
       state.items = state.items.filter((item) => item._id !== action.meta.arg);
+    });
+    // Get one post
+    builder.addCase(fetchPost.pending, (state) => {
+      postsSlice.caseReducers.setLoading(state);
+    });
+    builder.addCase(fetchPost.fulfilled, (state, action) => {
+      state.items = [action.payload];
+      state.status = 'loaded';
+    });
+    builder.addCase(fetchPost.rejected, (state, action) => {
+      postsSlice.caseReducers.setError(state, action);
     });
   },
 });
