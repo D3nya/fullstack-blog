@@ -5,7 +5,7 @@ export const fetchProfile = createAsyncThunk(
   'auth/fetchProfile',
   async (id, thunkAPI) => {
     try {
-      const { data } = await axios.get(`/users/${id}`);
+      const { data } = await axios.get(`/api/users/${id}`);
       return data;
     } catch (error) {
       thunkAPI.rejectWithValue(error.message);

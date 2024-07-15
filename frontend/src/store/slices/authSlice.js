@@ -5,7 +5,7 @@ export const fetchAuth = createAsyncThunk(
   'auth/fetchAuth',
   async (params, thunkAPI) => {
     try {
-      const { data } = await axios.post('/users/login', params);
+      const { data } = await axios.post('/api/users/login', params);
       return data;
     } catch (error) {
       thunkAPI.rejectWithValue(error.message);
@@ -17,7 +17,7 @@ export const fetchAuthMe = createAsyncThunk(
   'auth/fetchAuthMe',
   async (_, thunkAPI) => {
     try {
-      const { data } = await axios.get('/users/me');
+      const { data } = await axios.get('/api/users/me');
       return data;
     } catch (error) {
       thunkAPI.rejectWithValue(error.message);
@@ -29,7 +29,7 @@ export const fetchRegister = createAsyncThunk(
   'auth/fetchRegister',
   async (params, thunkAPI) => {
     try {
-      const { data } = await axios.post('/users/register', params);
+      const { data } = await axios.post('/api/users/register', params);
       return data;
     } catch (error) {
       thunkAPI.rejectWithValue(error.message);
@@ -41,7 +41,7 @@ export const fetchEditUser = createAsyncThunk(
   'auth/fetchEditUser',
   async ({ params, userId }, thunkAPI) => {
     try {
-      const { data } = await axios.put(`/users/${userId}`, params);
+      const { data } = await axios.put(`/api/users/${userId}`, params);
       return data;
     } catch (error) {
       thunkAPI.rejectWithValue(error.message);
@@ -55,7 +55,7 @@ export const addFavourite = createAsyncThunk(
     try {
       const params = { postId: id };
 
-      const { data } = await axios.post('/users/favourites', params);
+      const { data } = await axios.post('/api/users/favourites', params);
       return data;
     } catch (error) {
       thunkAPI.rejectWithValue(error.message);
@@ -69,7 +69,7 @@ export const deleteFavourite = createAsyncThunk(
     try {
       const params = { postId: id };
 
-      const { data } = await axios.delete('/users/favourites', {
+      const { data } = await axios.delete('/api/users/favourites', {
         data: params,
       });
       return data;

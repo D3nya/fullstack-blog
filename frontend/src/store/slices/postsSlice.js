@@ -8,7 +8,7 @@ export const fetchPosts = createAsyncThunk(
     thunkAPI
   ) => {
     try {
-      const { data, headers } = await axios.get(`/posts`, {
+      const { data, headers } = await axios.get(`/api/posts`, {
         params: { sortBy: sort, tag, limit, skip, findUser: profileId },
       });
 
@@ -25,7 +25,7 @@ export const fetchDeletePost = createAsyncThunk(
   'posts/fetchDeletePost',
   async (id, thunkAPI) => {
     try {
-      const { data } = await axios.delete(`posts/${id}`);
+      const { data } = await axios.delete(`/api/posts/${id}`);
       return data;
     } catch (error) {
       thunkAPI.rejectWithValue(error.message);

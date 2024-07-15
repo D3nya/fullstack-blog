@@ -31,7 +31,7 @@ import '@fontsource/roboto/700.css';
 import { Footer } from './components/Footer/Footer';
 
 // axios
-axios.defaults.baseURL = 'http://localhost:3000/';
+// axios.defaults.baseURL = 'http://localhost:8000/';
 
 axios.interceptors.request.use(
   function (config) {

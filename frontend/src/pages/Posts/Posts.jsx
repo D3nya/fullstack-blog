@@ -71,7 +71,7 @@ export const Posts = () => {
 
   // When in view div
   useEffect(() => {
-    if (inView && !allPostsLoaded && !isPostsLoading) {
+    if (inView && !allPostsLoaded && !isPostsLoading && !posts.error) {
       if (posts.skip + posts.limit * 2 > posts.totalCount) {
         dispatch(
           setLimit(

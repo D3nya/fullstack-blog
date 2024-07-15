@@ -6,7 +6,7 @@ export const fetchComments = createAsyncThunk(
   async ({ sortBy, postId }, thunkAPI) => {
     try {
       const { data } = await axios.get(
-        `/comments/?sortBy=${sortBy}&postId=${postId ? postId : ''}`
+        `/api/comments/?sortBy=${sortBy}&postId=${postId ? postId : ''}`
       );
       return data;
     } catch (error) {
@@ -19,7 +19,7 @@ export const fetchAddComment = createAsyncThunk(
   'comments/fetchComment',
   async (comment, thunkAPI) => {
     try {
-      const { data } = await axios.post(`/comments`, comment);
+      const { data } = await axios.post(`/api/comments`, comment);
       return data;
     } catch (error) {
       thunkAPI.rejectWithValue(error.message);

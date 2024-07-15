@@ -5,7 +5,7 @@ export const fetchTitles = createAsyncThunk(
   '/posts/fetchAllTitles',
   async (_, thunkAPI) => {
     try {
-      const { data } = await axios.get('/posts/titles');
+      const { data } = await axios.get('/api/posts/titles');
 
       return data;
     } catch (error) {

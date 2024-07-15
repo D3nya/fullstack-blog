@@ -51,7 +51,7 @@ export const Home = () => {
         )}
         {mainPost && <MainPost post={mainPost} />}
       </Box>
-      <Grid container spacing={4}>
+      <Grid container spacing={4} justifyContent={'center'}>
         {isPostsLoading &&
           [...Array(4)].map((item, index) => (
             <FeaturedPost key={index} isPostsLoading={isPostsLoading} />
